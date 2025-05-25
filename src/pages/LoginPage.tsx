@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Mail, Lock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LogIn, Mail, Lock, User, Chrome } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 
 const LoginPage: React.FC = () => {
-  const { login, register, isAuthenticated } = useAuth();
+  const { login, loginWithGoogle, register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formData, setFormData] = useState({
@@ -33,9 +33,18 @@ const LoginPage: React.FC = () => {
       }
       navigate('/servers');
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error('Erreur d\'authentification:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      navigate('/servers');
+    } catch (error) {
+      console.error('Erreur de connexion Google:', error);
     }
   };
 
@@ -87,11 +96,28 @@ const LoginPage: React.FC = () => {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">
-            {isLoginMode ? 'Welcome Back' : 'Create Account'}
+            {isLoginMode ? 'Bienvenue' : 'Créer un compte'}
           </h1>
           <p className="text-gray-300">
-            {isLoginMode ? 'Sign in to access exclusive Discord servers' : 'Join our community today'}
+            {isLoginMode ? 'Connectez-vous pour accéder aux serveurs Discord' : 'Rejoignez notre communauté'}
           </p>
+        </div>
+
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full bg-white hover:bg-gray-100 text-gray-800 font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center mb-6"
+        >
+          <Chrome size={20} className="mr-2" />
+          Continuer avec Google
+        </button>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-600"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-[#1A0F2E] text-gray-400">ou</span>
+          </div>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,7 +127,7 @@ const LoginPage: React.FC = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Your name"
+                placeholder="Votre nom"
                 value={formData.name}
                 onChange={handleInputChange}
                 className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
@@ -115,7 +141,7 @@ const LoginPage: React.FC = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email address"
+              placeholder="Adresse email"
               value={formData.email}
               onChange={handleInputChange}
               className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
@@ -128,7 +154,7 @@ const LoginPage: React.FC = () => {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Mot de passe"
               value={formData.password}
               onChange={handleInputChange}
               className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
@@ -144,7 +170,7 @@ const LoginPage: React.FC = () => {
             }`}
           >
             <LogIn size={20} className="mr-2" />
-            {isLoading ? 'Processing...' : isLoginMode ? 'Sign In' : 'Create Account'}
+            {isLoading ? 'Traitement...' : isLoginMode ? 'Se connecter' : 'Créer un compte'}
           </button>
         </form>
         
@@ -153,12 +179,12 @@ const LoginPage: React.FC = () => {
             onClick={() => setIsLoginMode(!isLoginMode)}
             className="text-purple-400 hover:text-purple-300 transition-colors"
           >
-            {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+            {isLoginMode ? "Pas encore de compte ? S'inscrire" : 'Déjà un compte ? Se connecter'}
           </button>
         </div>
         
         <p className="text-gray-400 text-sm mt-6 text-center">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          En continuant, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité.
         </p>
       </motion.div>
     </div>

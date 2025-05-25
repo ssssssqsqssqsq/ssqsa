@@ -5,6 +5,8 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
   User as FirebaseUser
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
@@ -16,6 +18,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -32,14 +35,15 @@ export const useAuth = () => {
 
 const mapFirebaseUser = (firebaseUser: FirebaseUser): User => ({
   id: firebaseUser.uid,
-  name: firebaseUser.displayName || 'User',
+  name: firebaseUser.displayName || 'Utilisateur',
   email: firebaseUser.email || '',
-  avatar: firebaseUser.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${firebaseUser.displayName || 'User'}`
+  avatar: firebaseUser.photoURL || `https://api.dicebear.com/7.x/initials/svg?seed=${firebaseUser.displayName || 'Utilisateur'}`
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const googleProvider = new GoogleAuthProvider();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -58,9 +62,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       setUser(mapFirebaseUser(userCredential.user));
-      toast.success('Successfully logged in!');
+      toast.success('Connexion réussie !');
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error('Erreur de connexion. Vérifiez vos identifiants.');
+      throw error;
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(mapFirebaseUser(result.user));
+      toast.success('Connexion avec Google réussie !');
+    } catch (error: any) {
+      toast.error('Erreur de connexion avec Google.');
       throw error;
     }
   };
@@ -70,9 +85,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
       setUser(mapFirebaseUser(userCredential.user));
-      toast.success('Account created successfully!');
+      toast.success('Compte créé avec succès !');
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error('Erreur lors de la création du compte.');
       throw error;
     }
   };
@@ -81,9 +96,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await signOut(auth);
       setUser(null);
-      toast.success('Logged out successfully');
+      toast.success('Déconnexion réussie');
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error('Erreur lors de la déconnexion');
       throw error;
     }
   };
@@ -95,6 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated: !!user,
         isLoading,
         login,
+        loginWithGoogle,
         register,
         logout,
       }}
