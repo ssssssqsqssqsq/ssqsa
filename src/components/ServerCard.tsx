@@ -1,11 +1,18 @@
 import React from 'react';
-import { ExternalLink, Users, Crown, Zap, Star } from 'lucide-react';
+import { ExternalLink, Users, Crown, Zap, Star, Gamepad2, Users2, Megaphone, Shapes } from 'lucide-react';
 import { DiscordServer } from '../types';
 import { motion } from 'framer-motion';
 
 interface ServerCardProps {
   server: DiscordServer;
 }
+
+const categoryIcons = {
+  gaming: Gamepad2,
+  community: Users2,
+  advertising: Megaphone,
+  other: Shapes,
+};
 
 const categoryColors = {
   gaming: 'bg-purple-600',
@@ -29,6 +36,7 @@ const promotionBadges = {
 
 const ServerCard: React.FC<ServerCardProps> = ({ server }) => {
   const PromotionIcon = server.promotionLevel ? promotionBadges[server.promotionLevel].icon : null;
+  const CategoryIcon = server.category ? categoryIcons[server.category] : categoryIcons.other;
   
   return (
     <motion.div 
@@ -46,7 +54,8 @@ const ServerCard: React.FC<ServerCardProps> = ({ server }) => {
               alt={server.name} 
               className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
             />
-            <span className={`absolute bottom-0 right-0 ${categoryColors[server.category]} text-white text-xs font-medium px-2 py-1 rounded-full`}>
+            <span className={`absolute bottom-0 right-0 ${categoryColors[server.category]} text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1`}>
+              <CategoryIcon size={12} />
               {categoryLabels[server.category]}
             </span>
           </div>
