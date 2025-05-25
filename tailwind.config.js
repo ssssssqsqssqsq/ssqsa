@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'reload-purple': {
+        'reloadWeb-purple': {
           50: '#f3effb',
           100: '#e5daf7',
           200: '#cdb6ef',
