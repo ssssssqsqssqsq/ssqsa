@@ -3,17 +3,17 @@ import { GameMod } from '../types';
 export const gameMods: GameMod[] = [
   {
     id: '1',
-    name: 'FiveM Server',
+    name: 'Reload Ta Pub',
     description: 'A high-performance FiveM server with custom scripts and regular events.',
     category: 'gameserver',
-    subcategory: 'gta5',
+    subcategory: 'discord',
     thumbnailUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=300',
-    downloadUrl: '#',
-    author: 'Reload Community',
+    downloadUrl: '',
+    author: 'Reload Ta Pub',
     rating: 4.8,
-    downloads: 1250,
-    dateAdded: new Date('2024-03-15'),
-    requirements: ['GTA V', 'FiveM Client'],
+    downloads: 'New',
+    dateAdded: new Date('2025-05-25'),
+    requirements: ['Discord']
     screenshots: [
       'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
