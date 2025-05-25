@@ -16,11 +16,11 @@ interface Product {
 const products: Product[] = [
   {
     id: 'basic',
-    name: 'Basic Boost',
-    description: 'Perfect for small servers looking to grow',
-    price: 4.99,
+    name: 'free Boost',
+    description: 'Boost Gratuit, Mettre en avant sont serveur.',
+    price: 0,
     features: [
-      '24-hour server promotion',
+      '48-hour server promotion',
       'Basic analytics',
       'Standard support'
     ],
@@ -29,10 +29,10 @@ const products: Product[] = [
   {
     id: 'premium',
     name: 'Premium Boost',
-    description: 'Enhanced visibility and features',
-    price: 9.99,
+    description: 'Montre ta visibilité pour ton serveur discord',
+    price: 1.30,
     features: [
-      '72-hour server promotion',
+      '1-Week server promotion',
       'Advanced analytics',
       'Priority support',
       'Custom server banner'
@@ -43,10 +43,10 @@ const products: Product[] = [
   {
     id: 'ultimate',
     name: 'Ultimate Boost',
-    description: 'Maximum exposure and benefits',
-    price: 19.99,
+    description: 'Maximum boost, hyper visibilité',
+    price: 4.50,
     features: [
-      '7-day server promotion',
+      'Infinity day server promotion',
       'Premium analytics',
       '24/7 VIP support',
       'Custom server banner',
