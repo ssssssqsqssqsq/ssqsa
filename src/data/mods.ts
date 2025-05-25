@@ -13,7 +13,7 @@ export const gameMods: GameMod[] = [
     rating: 0,
     downloads: 9,
     dateAdded: new Date('2025-05-25'),
-    requirements: ['Discord']
+    requirements: ['Discord Publicitaire']
     screenshots: [
       'https://cdn.discordapp.com/attachments/1372686113826934855/1375909100017160402/ReloadFrance.png?ex=68340f74&is=6832bdf4&hm=4f9842f8a4f5db5421d9153225367f5b36a9b82170b05a2cb74b71cb8bf98334'
     ],
