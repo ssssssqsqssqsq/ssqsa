@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import ServerCard from '../components/ServerCard';
-import { discordServers } from '../data/servers';
-import { Search, Filter } from 'lucide-react';
+import { discordServers, promotedServers } from '../data/servers';
+import { Search, Filter, Zap, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ServersPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [showPromoted, setShowPromoted] = useState(false);
   
-  // Redirect if not authenticated
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
-  // Filter servers based on search and category
-  const filteredServers = discordServers.filter((server) => {
+  const servers = showPromoted ? promotedServers : discordServers;
+  
+  const filteredServers = servers.filter((server) => {
     const matchesSearch = server.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          server.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || server.category === selectedCategory;
@@ -41,13 +42,29 @@ const ServersPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-6">Discord Servers</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              {showPromoted ? 'Featured Servers' : 'Discord Servers'}
+            </h1>
+            <button
+              onClick={() => setShowPromoted(!showPromoted)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                showPromoted 
+                  ? 'bg-purple-600 text-white' 
+                  : 'bg-[#1A0F2E] text-purple-400 hover:bg-purple-600/20'
+              }`}
+            >
+              {showPromoted ? <Crown className="w-5 h-5" /> : <Zap className="w-5 h-5" />}
+              {showPromoted ? 'Featured' : 'Regular'}
+            </button>
+          </div>
+
           <p className="text-gray-300 mb-8 max-w-2xl">
-            Discover and join the best Discord servers in our network. Each server is verified 
-            for quality and active community.
+            {showPromoted 
+              ? 'Discover our featured servers with enhanced visibility and premium benefits.'
+              : 'Discover and join the best Discord servers in our network. Each server is verified for quality and active community.'}
           </p>
           
-          {/* Search and Filter */}
           <div className="flex flex-col md:flex-row gap-4 mb-10">
             <div className="relative flex-grow">
               <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -81,7 +98,6 @@ const ServersPage: React.FC = () => {
             </div>
           </div>
           
-          {/* Servers Grid */}
           {filteredServers.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredServers.map((server, index) => (
@@ -107,6 +123,22 @@ const ServersPage: React.FC = () => {
               >
                 Clear filters
               </button>
+            </div>
+          )}
+
+          {!showPromoted && (
+            <div className="mt-12 bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl p-8 text-center">
+              <h2 className="text-2xl font-bold text-white mb-4">Want to promote your server?</h2>
+              <p className="text-gray-300 mb-6">
+                Get featured placement, custom branding, and priority support for your Discord server.
+              </p>
+              <a
+                href="/shop"
+                className="inline-flex items-center bg-white text-purple-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+              >
+                <Crown className="w-5 h-5 mr-2" />
+                Boost Your Server
+              </a>
             </div>
           )}
         </motion.div>

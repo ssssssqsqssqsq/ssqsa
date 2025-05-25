@@ -15,6 +15,9 @@ export interface DiscordServer {
   memberCount: number;
   boostLevel: number;
   ranking?: number;
+  promoted?: boolean;
+  promotionLevel?: 'basic' | 'premium' | 'ultimate';
+  promotionExpiry?: Date;
 }
 
 export interface Song {
