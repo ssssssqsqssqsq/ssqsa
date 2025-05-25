@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Music, Play, Pause, Volume2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
@@ -9,7 +9,7 @@ import { getRankedServers } from '../data/servers';
 
 const HomePage: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  const { playlist, playSong } = useMusic();
+  const { playlist, playSong, currentSong, isPlaying, pauseSong } = useMusic();
   const rankedServers = getRankedServers();
 
   // Auto play music when page loads
@@ -95,19 +95,127 @@ const HomePage: React.FC = () => {
             </div>
           </motion.div>
         </div>
-        
-        {/* Scroll Indicator */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <ArrowRight size={24} className="text-white/70 transform rotate-90" />
-        </motion.div>
+      </section>
+
+      {/* Radio Section */}
+      <section className="py-20 bg-[#1A0F2E] relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="relative z-10"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center">
+                <Music className="mr-3 text-purple-400" />
+                ReloadRadio Live
+              </h2>
+              <p className="text-gray-300">Listen to our curated playlist while browsing servers</p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <motion.div 
+                className="bg-gradient-to-r from-purple-900/50 to-indigo-900/50 rounded-2xl p-8 backdrop-blur-lg border border-purple-500/20"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                {currentSong && (
+                  <div className="flex items-center gap-6">
+                    <div className="relative w-32 h-32 rounded-lg overflow-hidden">
+                      <img 
+                        src={currentSong.coverArt || "https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} 
+                        alt={currentSong.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <h3 className="text-2xl font-bold text-white mb-1">{currentSong.title}</h3>
+                          <p className="text-purple-400">{currentSong.artist}</p>
+                        </div>
+                        <button
+                          onClick={isPlaying ? pauseSong : () => playSong(currentSong)}
+                          className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full transition-colors"
+                        >
+                          {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+                        </button>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Volume2 size={20} className="text-purple-400" />
+                        <div className="flex-1 h-2 bg-purple-900/50 rounded-full overflow-hidden">
+                          <motion.div 
+                            className="h-full bg-purple-500"
+                            initial={{ width: "0%" }}
+                            animate={{ width: "45%" }}
+                            transition={{ duration: 0.5 }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-8 pt-6 border-t border-purple-500/20">
+                  <h4 className="text-lg font-semibold mb-4">Coming Up Next</h4>
+                  <div className="grid gap-4">
+                    {playlist.slice(1, 4).map((song) => (
+                      <motion.div 
+                        key={song.id}
+                        className="flex items-center gap-4 p-3 rounded-lg hover:bg-purple-900/20 cursor-pointer"
+                        whileHover={{ x: 10 }}
+                      >
+                        <img 
+                          src={song.coverArt || "https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} 
+                          alt={song.title}
+                          className="w-12 h-12 rounded object-cover"
+                        />
+                        <div>
+                          <h5 className="font-medium">{song.title}</h5>
+                          <p className="text-sm text-purple-400">{song.artist}</p>
+                        </div>
+                        <Play size={16} className="ml-auto text-purple-400" />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          <motion.div 
+            className="absolute top-20 left-10 w-72 h-72 rounded-full bg-purple-600/10 filter blur-3xl"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.2, 0.3]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-blue-600/10 filter blur-3xl"
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              opacity: [0.2, 0.3, 0.2]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
       </section>
 
       {/* Server Ranking Section */}
