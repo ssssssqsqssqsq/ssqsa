@@ -34,6 +34,12 @@ const getYouTubeId = (url: string) => {
   return match && match[2].length === 11 ? match[2] : null;
 };
 
+useEffect(() => {
+  if (songs.length > 0) {
+    playSong(songs[0]);
+  }
+}, []);
+
 export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [playlist, setPlaylist] = useState<Song[]>(songs);
@@ -63,7 +69,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const pauseSong = useCallback(() => {
     playerRef.current?.pauseVideo();
-    setIsPlaying(true);
+    setIsPlaying(false);
   }, []);
 
   const nextSong = useCallback(() => {
@@ -104,7 +110,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           height: '0',
           width: '0',
           playerVars: {
-            autoplay: 0,
+            autoplay: ,
             controls: 0,
             disablekb: 1,
             fs: 0,
