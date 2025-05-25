@@ -12,7 +12,6 @@ export const gameMods: GameMod[] = [
     author: 'Reload Ta Pub',
     rating: 0.6,
     downloads: 9.9,
-    dateAdded: new Date('2025-05-25'),
     requirements: ['Discord Publicitaire']
     tags: ['Discord server', 'active-community'],
     featured: true
@@ -28,7 +27,6 @@ export const gameMods: GameMod[] = [
     author: 'Reload Gaming',
     rating: 4.6,
     downloads: 850,
-    dateAdded: new Date('2024-03-10'),
     requirements: ['Minecraft Java Edition'],
     ],
     tags: ['survival', 'plugins', 'community'],
