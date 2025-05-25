@@ -19,8 +19,9 @@ function App() {
         <Router>
           <div className="app-container">
             <Navbar />
+            <MusicPlayer />
             
-            <main>
+            <main className="pl-64">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
@@ -29,7 +30,6 @@ function App() {
               </Routes>
             </main>
             
-            <MusicPlayer />
             <Toaster 
               position="top-right" 
               toastOptions={{

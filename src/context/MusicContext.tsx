@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useCallback, useRef } from 
 import YouTube from 'react-youtube';
 import { Song } from '../types';
 import { songs } from '../data/songs';
+import { toast } from 'sonner';
 
 interface MusicContextType {
   currentSong: Song | null;
@@ -14,6 +15,7 @@ interface MusicContextType {
   previousSong: () => void;
   setVolume: (volume: number) => void;
   toggleMute: () => void;
+  addSong: (song: Song) => void;
 }
 
 const MusicContext = createContext<MusicContextType | undefined>(undefined);
@@ -26,7 +28,6 @@ export const useMusic = () => {
   return context;
 };
 
-// Extract YouTube video ID from URL
 const getYouTubeId = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
@@ -35,11 +36,20 @@ const getYouTubeId = (url: string) => {
 
 export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [playlist] = useState<Song[]>(songs);
-  const [volume, setVolumeState] = useState(0.5);
-  const [previousVolume, setPreviousVolume] = useState(0.5);
+  const [playlist, setPlaylist] = useState<Song[]>(songs);
+  const [volume, setVolumeState] = useState(0.3);
+  const [previousVolume, setPreviousVolume] = useState(0.3);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef<any>(null);
+
+  const addSong = useCallback((song: Song) => {
+    if (!getYouTubeId(song.url)) {
+      toast.error('Invalid YouTube URL');
+      return;
+    }
+    setPlaylist((prev) => [...prev, song]);
+    toast.success('Song added to playlist');
+  }, []);
 
   const playSong = useCallback((song: Song) => {
     if (currentSong?.id === song.id) {
@@ -86,7 +96,6 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [volume, previousVolume, setVolume]);
 
-  // Hidden YouTube player
   const youtubePlayer = currentSong && (
     <div className="hidden">
       <YouTube
@@ -121,6 +130,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }}
         onError={() => {
           console.error('YouTube player error');
+          toast.error('Error playing song');
           nextSong();
         }}
       />
@@ -140,6 +150,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         previousSong,
         setVolume,
         toggleMute,
+        addSong,
       }}
     >
       {youtubePlayer}
