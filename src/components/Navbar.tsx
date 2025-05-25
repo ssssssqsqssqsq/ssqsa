@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Volume2, VolumeX, LogOut, Music } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, LogOut, Music, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
   const { user, logout, isAuthenticated } = useAuth();
-  const { currentSong, isPlaying, pauseSong, playSong, toggleMute, volume } = useMusic();
+  const { currentSong, toggleMute, volume } = useMusic();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -75,36 +75,28 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               Servers
             </Link>
             <Link 
+              to="/shop" 
+              className={`text-white hover:text-purple-300 transition-colors ${isActive('/shop') ? 'font-bold text-purple-300' : ''}`}
+            >
+              <div className="flex items-center space-x-1">
+                <ShoppingBag size={18} />
+                <span>Shop</span>
+              </div>
+            </Link>
+            <Link 
               to="/about" 
               className={`text-white hover:text-purple-300 transition-colors ${isActive('/about') ? 'font-bold text-purple-300' : ''}`}
             >
               About
             </Link>
 
-            {/* Music Controls */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={onToggleMusicPlayer}
-                className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
-              >
-                <Music size={20} />
-                <span>ReloadRadio</span>
-              </button>
-              
-              <button 
-                onClick={toggleMute} 
-                className="text-white hover:text-purple-300 transition-colors"
-                aria-label={volume > 0 ? "Mute" : "Unmute"}
-              >
-                {volume > 0 ? <Volume2 size={20} /> : <VolumeX size={20} />}
-              </button>
-              
-              {currentSong && (
-                <div className="text-sm text-white opacity-80 hidden lg:block">
-                  {currentSong.title} - {currentSong.artist}
-                </div>
-              )}
-            </div>
+            <button
+              onClick={onToggleMusicPlayer}
+              className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
+            >
+              <Music size={18} />
+              <span>ReloadRadio</span>
+            </button>
 
             {/* User Profile/Login */}
             {isAuthenticated ? (
@@ -171,6 +163,16 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               Servers
             </Link>
             <Link 
+              to="/shop" 
+              className={`text-white hover:text-purple-300 transition-colors py-2 ${isActive('/shop') ? 'font-bold text-purple-300' : ''}`}
+              onClick={closeMenu}
+            >
+              <div className="flex items-center space-x-2">
+                <ShoppingBag size={18} />
+                <span>Shop</span>
+              </div>
+            </Link>
+            <Link 
               to="/about" 
               className={`text-white hover:text-purple-300 transition-colors py-2 ${isActive('/about') ? 'font-bold text-purple-300' : ''}`}
               onClick={closeMenu}
@@ -178,33 +180,16 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               About
             </Link>
 
-            {/* Music Controls for Mobile */}
-            <div className="flex items-center space-x-3 py-2">
-              <button
-                onClick={() => {
-                  onToggleMusicPlayer();
-                  closeMenu();
-                }}
-                className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
-              >
-                <Music size={20} />
-                <span>ReloadRadio</span>
-              </button>
-              
-              <button 
-                onClick={toggleMute} 
-                className="text-white hover:text-purple-300 transition-colors"
-                aria-label={volume > 0 ? "Mute" : "Unmute"}
-              >
-                {volume > 0 ? <Volume2 size={20} /> : <VolumeX size={20} />}
-              </button>
-              
-              {currentSong && (
-                <div className="text-sm text-white opacity-80">
-                  {currentSong.title} - {currentSong.artist}
-                </div>
-              )}
-            </div>
+            <button
+              onClick={() => {
+                onToggleMusicPlayer();
+                closeMenu();
+              }}
+              className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2 py-2"
+            >
+              <Music size={18} />
+              <span>ReloadRadio</span>
+            </button>
 
             {/* User Profile/Login for Mobile */}
             {isAuthenticated ? (

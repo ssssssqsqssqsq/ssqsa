@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ServersPage from './pages/ServersPage';
 import AboutPage from './pages/AboutPage';
+import ShopPage from './pages/ShopPage';
 
 function App() {
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
@@ -23,12 +24,13 @@ function App() {
             <Navbar onToggleMusicPlayer={() => setIsMusicPlayerOpen(!isMusicPlayerOpen)} />
             <MusicPlayer isOpen={isMusicPlayerOpen} onClose={() => setIsMusicPlayerOpen(false)} />
             
-            <main className={isMusicPlayerOpen ? 'pl-80' : ''}>
+            <main className={`transition-all duration-300 ${isMusicPlayerOpen ? 'pl-80' : ''}`}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/servers" element={<ServersPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/shop" element={<ShopPage />} />
               </Routes>
             </main>
             
