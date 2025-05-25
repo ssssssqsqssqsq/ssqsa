@@ -17,18 +17,18 @@ export const discordServers: DiscordServer[] = [
     description: '',
     category: '',
     inviteLink: '',
-    iconUrl: '',
+    iconUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=150',
     memberCount: 0,
     boostLevel: 0
   },
   {
     id: '3',
-    name: 'Creators United',
-    description: 'A place for content creators to connect and grow!',
-    category: 'community',
-    inviteLink: 'https://discord.gg/example2',
+    name: '#Soon',
+    description: '',
+    category: '',
+    inviteLink: '',
     iconUrl: 'https://images.pexels.com/photos/2755075/pexels-photo-2755075.jpeg?auto=compress&cs=tinysrgb&w=150',
-    memberCount: 28,
+    memberCount: 0,
     boostLevel: 0
   }
 ];
