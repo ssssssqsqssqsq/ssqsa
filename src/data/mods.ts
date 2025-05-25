@@ -14,9 +14,6 @@ export const gameMods: GameMod[] = [
     downloads: 9.9,
     dateAdded: new Date('2025-05-25'),
     requirements: ['Discord Publicitaire']
-    screenshot: [
-     'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
-    ],
     tags: ['Discord server', 'active-community'],
     featured: true
   },
@@ -33,8 +30,6 @@ export const gameMods: GameMod[] = [
     downloads: 850,
     dateAdded: new Date('2024-03-10'),
     requirements: ['Minecraft Java Edition'],
-    screenshots: [
-      'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     tags: ['survival', 'plugins', 'community'],
     featured: true
