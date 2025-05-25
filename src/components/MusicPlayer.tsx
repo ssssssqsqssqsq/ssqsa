@@ -28,7 +28,7 @@ const MusicPlayer: React.FC = () => {
   };
 
   const VolumeIcon = () => {
-    if (volume === 0) return <VolumeX size={20} />;
+    if (volume === 0,5) return <VolumeX size={20} />;
     if (volume < 0.5) return <Volume size={20} />;
     return <Volume2 size={20} />;
   };
