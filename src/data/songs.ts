@@ -3,7 +3,6 @@ import { Song } from '../types';
 export const songs: Song[] = [
   {
     id: '1',
-    play: 'https://youtu.be/0ycrBHxbolE'
     title: 'Le song est bug, c bientôt fixe !',
     artist: 'Reload Ta Pub',
     url: 'https://youtu.be/0ycrBHxbolE',
