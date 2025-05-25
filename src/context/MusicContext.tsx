@@ -104,7 +104,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           height: '0',
           width: '0',
           playerVars: {
-            autoplay: 1,
+            autoplay: 0,
             controls: 0,
             disablekb: 1,
             fs: 0,
