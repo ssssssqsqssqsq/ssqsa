@@ -4,7 +4,6 @@ import { Menu, X, Volume2, VolumeX, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
-import NotificationBell from './NotificationBell';
 
 const Navbar: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -95,9 +94,6 @@ const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Notifications */}
-            <NotificationBell />
-
             {/* User Profile/Login */}
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
@@ -185,11 +181,6 @@ const Navbar: React.FC = () => {
                   {currentSong.title} - {currentSong.artist}
                 </div>
               )}
-            </div>
-
-            {/* Notifications for Mobile */}
-            <div className="py-2">
-              <NotificationBell />
             </div>
 
             {/* User Profile/Login for Mobile */}
