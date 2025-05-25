@@ -28,9 +28,9 @@ const MusicPlayer: React.FC = () => {
   };
 
   const VolumeIcon = () => {
-    if (volume === 0,5) return <VolumeX size={20} />;
-    if (volume < 0.5) return <Volume size={20} />;
-    return <Volume2 size={20} />;
+    if (volume === 0,5) return <VolumeX size={10} />;
+    if (volume < 0.5) return <Volume size={10} />;
+    return <Volume2 size={10} />;
   };
 
   return (
@@ -38,7 +38,7 @@ const MusicPlayer: React.FC = () => {
       className="fixed bottom-4 right-4 z-40 bg-[#2D1B4E] rounded-lg shadow-lg overflow-hidden"
       initial={{ width: "60px", height: "60px" }}
       animate={{ 
-        width: isExpanded ? "300px" : "60px",
+        width: isExpanded ? "200px" : "60px",
         height: isExpanded ? "auto" : "60px",
       }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
