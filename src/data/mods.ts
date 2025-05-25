@@ -6,7 +6,7 @@ export const gameMods: GameMod[] = [
     name: 'Reload Ta Pub',
     description: 'A high-performance FiveM server with custom scripts and regular events.',
     category: 'discord server',
-    subcategory: 'discord',
+    subcategory: 'gameserver',
     thumbnailUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=300',
     downloadUrl: 'https://discord.gg/rz2eW6vucj',
     author: 'Reload Ta Pub',
