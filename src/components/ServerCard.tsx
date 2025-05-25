@@ -1,18 +1,11 @@
 import React from 'react';
-import { ExternalLink, Users, Crown, Zap, Star, Gamepad2, Users2, Megaphone, Shapes } from 'lucide-react';
+import { ExternalLink, Users } from 'lucide-react';
 import { DiscordServer } from '../types';
 import { motion } from 'framer-motion';
 
 interface ServerCardProps {
   server: DiscordServer;
 }
-
-const categoryIcons = {
-  gaming: Gamepad2,
-  community: Users2,
-  advertising: Megaphone,
-  other: Shapes,
-};
 
 const categoryColors = {
   gaming: 'bg-purple-600',
@@ -28,21 +21,10 @@ const categoryLabels = {
   other: 'Other',
 };
 
-const promotionBadges = {
-  basic: { icon: Zap, color: 'bg-blue-500', label: 'Basic' },
-  premium: { icon: Star, color: 'bg-purple-500', label: 'Premium' },
-  ultimate: { icon: Crown, color: 'bg-yellow-500', label: 'Ultimate' }
-};
-
 const ServerCard: React.FC<ServerCardProps> = ({ server }) => {
-  const PromotionIcon = server.promotionLevel ? promotionBadges[server.promotionLevel].icon : null;
-  const CategoryIcon = server.category ? categoryIcons[server.category] : categoryIcons.other;
-  
   return (
     <motion.div 
-      className={`bg-gradient-to-br from-[#1A0F2E] to-[#2D1B4E] rounded-lg overflow-hidden shadow-lg ${
-        server.promoted ? 'border-2 border-purple-500' : ''
-      }`}
+      className="bg-gradient-to-br from-[#1A0F2E] to-[#2D1B4E] rounded-lg overflow-hidden shadow-lg"
       whileHover={{ y: -5, boxShadow: '0 10px 30px -10px rgba(138, 43, 226, 0.5)' }}
       transition={{ duration: 0.3 }}
     >
@@ -54,22 +36,13 @@ const ServerCard: React.FC<ServerCardProps> = ({ server }) => {
               alt={server.name} 
               className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
             />
-            <span className={`absolute bottom-0 right-0 ${categoryColors[server.category]} text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1`}>
-              <CategoryIcon size={12} />
+            <span className={`absolute bottom-0 right-0 ${categoryColors[server.category]} text-white text-xs font-medium px-2 py-1 rounded-full`}>
               {categoryLabels[server.category]}
             </span>
           </div>
-          <div className="ml-4 flex-grow">
-            <div className="flex items-center justify-between">
-              <h3 className="text-white text-xl font-bold mb-1">{server.name}</h3>
-              {server.promoted && PromotionIcon && (
-                <span className={`${promotionBadges[server.promotionLevel!].color} text-white text-xs font-bold px-2 py-1 rounded-full flex items-center`}>
-                  <PromotionIcon className="w-3 h-3 mr-1" />
-                  {promotionBadges[server.promotionLevel!].label}
-                </span>
-              )}
-            </div>
-            {server.memberCount > 0 && (
+          <div className="ml-4">
+            <h3 className="text-white text-xl font-bold mb-1">{server.name}</h3>
+            {server.memberCount && (
               <div className="flex items-center text-purple-300 text-sm">
                 <Users size={14} className="mr-1" />
                 <span>{server.memberCount.toLocaleString()} members</span>
