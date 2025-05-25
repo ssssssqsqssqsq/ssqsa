@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import ServersPage from './pages/ServersPage';
 import AboutPage from './pages/AboutPage';
 import ShopPage from './pages/ShopPage';
+import RadioPage from './pages/RadioPage';
 
 function App() {
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/servers" element={<ServersPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/shop" element={<ShopPage />} />
+                <Route path="/radio" element={<RadioPage />} />
               </Routes>
             </main>
             

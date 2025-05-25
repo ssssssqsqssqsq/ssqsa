@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogOut, Home, Server, ShoppingBag, Info, Music } from 'lucide-react';
+import { Menu, X, LogOut, Home, Server, ShoppingBag, Info, Music, Radio } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
@@ -31,6 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
     { path: '/servers', label: 'Serveurs', icon: <Server size={18} /> },
     { path: '/shop', label: 'Boutique', icon: <ShoppingBag size={18} /> },
     { path: '/about', label: 'À propos', icon: <Info size={18} /> },
+    { path: '/radio', label: 'Radio', icon: <Radio size={18} /> },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -52,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              ReloadFrance
+              RELOAD
             </motion.div>
           </Link>
 
@@ -76,7 +77,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
             >
               <Music size={18} />
-              <span>Radio</span>
+              <span>Player</span>
             </button>
           </div>
 
@@ -105,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
                 to="/login" 
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors"
               >
-                Connexion Discord
+                Connexion Google
               </Link>
             )}
           </div>
