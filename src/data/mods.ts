@@ -10,8 +10,8 @@ export const gameMods: GameMod[] = [
     thumbnailUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=300',
     downloadUrl: '',
     author: 'Reload Ta Pub',
-    rating: 4.8,
-    downloads: 'New',
+    rating: 4.8%,
+    downloads: 99%,
     dateAdded: new Date('2025-05-25'),
     requirements: ['Discord']
     screenshots: [
