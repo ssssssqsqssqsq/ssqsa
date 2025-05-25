@@ -147,15 +147,3 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </MusicContext.Provider>
   );
 };
-const audioRef = useRef<HTMLAudioElement>(null);
-
-useEffect(() => {
-  if (audioRef.current && currentSong) {
-    audioRef.current.src = currentSong.url;
-    if (isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  }
-}, [currentSong, isPlaying]);
