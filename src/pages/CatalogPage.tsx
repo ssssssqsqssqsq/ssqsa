@@ -18,7 +18,7 @@ const CatalogPage: React.FC = () => {
   ];
 
   const subcategories = {
-    game: ['all', 'action', 'rpg', 'strategy', 'simulation'],
+    game: ['all', 'Publicitaire', 'Gaming', 'Jeu Officiel', 'Communauté', 'Autres'],
     discord: ['all', 'gaming', 'community', 'modding'],
     gameserver: ['all', 'minecraft', 'gta5', 'rust', 'ark']
   };
