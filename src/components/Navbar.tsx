@@ -4,6 +4,7 @@ import { Menu, X, Volume2, VolumeX, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
+import NotificationBell from './NotificationBell';
 
 const Navbar: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -94,6 +95,9 @@ const Navbar: React.FC = () => {
               )}
             </div>
 
+            {/* Notifications */}
+            <NotificationBell />
+
             {/* User Profile/Login */}
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
@@ -118,7 +122,7 @@ const Navbar: React.FC = () => {
                 to="/login" 
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors"
               >
-                Login
+                Login with Discord
               </Link>
             )}
           </div>
@@ -183,6 +187,11 @@ const Navbar: React.FC = () => {
               )}
             </div>
 
+            {/* Notifications for Mobile */}
+            <div className="py-2">
+              <NotificationBell />
+            </div>
+
             {/* User Profile/Login for Mobile */}
             {isAuthenticated ? (
               <div className="flex items-center justify-between py-2 border-t border-purple-900">
@@ -211,7 +220,7 @@ const Navbar: React.FC = () => {
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors text-center mt-2"
                 onClick={closeMenu}
               >
-                Login
+                Login with Discord
               </Link>
             )}
           </div>
@@ -221,4 +230,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar
+export default Navbar;
