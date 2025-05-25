@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Volume2, VolumeX, LogOut } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, LogOut, Music } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onToggleMusicPlayer: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
   const { user, logout, isAuthenticated } = useAuth();
   const { currentSong, isPlaying, pauseSong, playSong, toggleMute, volume } = useMusic();
   const location = useLocation();
@@ -78,7 +82,15 @@ const Navbar: React.FC = () => {
             </Link>
 
             {/* Music Controls */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={onToggleMusicPlayer}
+                className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
+              >
+                <Music size={20} />
+                <span>ReloadRadio</span>
+              </button>
+              
               <button 
                 onClick={toggleMute} 
                 className="text-white hover:text-purple-300 transition-colors"
@@ -168,6 +180,17 @@ const Navbar: React.FC = () => {
 
             {/* Music Controls for Mobile */}
             <div className="flex items-center space-x-3 py-2">
+              <button
+                onClick={() => {
+                  onToggleMusicPlayer();
+                  closeMenu();
+                }}
+                className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
+              >
+                <Music size={20} />
+                <span>ReloadRadio</span>
+              </button>
+              
               <button 
                 onClick={toggleMute} 
                 className="text-white hover:text-purple-300 transition-colors"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
@@ -13,15 +13,17 @@ import ServersPage from './pages/ServersPage';
 import AboutPage from './pages/AboutPage';
 
 function App() {
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
+
   return (
     <AuthProvider>
       <MusicProvider>
         <Router>
           <div className="app-container">
-            <Navbar />
-            <MusicPlayer />
+            <Navbar onToggleMusicPlayer={() => setIsMusicPlayerOpen(!isMusicPlayerOpen)} />
+            <MusicPlayer isOpen={isMusicPlayerOpen} onClose={() => setIsMusicPlayerOpen(false)} />
             
-            <main className="pl-64">
+            <main className={isMusicPlayerOpen ? 'pl-80' : ''}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
