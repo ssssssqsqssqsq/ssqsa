@@ -10,9 +10,13 @@ export const gameMods: GameMod[] = [
     thumbnailUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=300',
     downloadUrl: 'https://discord.gg/rz2eW6vucj',
     author: 'Reload Ta Pub',
-    rating: 0.6,
-    downloads: 9.9,
+    rating: 0,
+    downloads: 9,
+    dateAdded: new Date('2025-05-25'),
     requirements: ['Discord Publicitaire']
+    screenshot: [
+     'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
     tags: ['Discord server', 'active-community'],
     featured: true
   },
@@ -27,7 +31,10 @@ export const gameMods: GameMod[] = [
     author: 'Reload Gaming',
     rating: 4.6,
     downloads: 850,
+    dateAdded: new Date('2024-03-10'),
     requirements: ['Minecraft Java Edition'],
+    screenshots: [
+      'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
     ],
     tags: ['survival', 'plugins', 'community'],
     featured: true
