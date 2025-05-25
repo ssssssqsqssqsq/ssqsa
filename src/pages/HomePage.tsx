@@ -4,10 +4,13 @@ import { ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
+import ServerRanking from '../components/ServerRanking';
+import { getRankedServers } from '../data/servers';
 
 const HomePage: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const { playlist, playSong } = useMusic();
+  const rankedServers = getRankedServers();
 
   // Auto play music when page loads
   useEffect(() => {
@@ -79,7 +82,7 @@ const HomePage: React.FC = () => {
                   to="/login" 
                   className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-medium transition-colors flex items-center justify-center"
                 >
-                  Login with Google
+                  Login with Discord
                 </Link>
               )}
               
@@ -105,6 +108,21 @@ const HomePage: React.FC = () => {
         >
           <ArrowRight size={24} className="text-white/70 transform rotate-90" />
         </motion.div>
+      </section>
+
+      {/* Server Ranking Section */}
+      <section className="py-20 bg-[#1A0F2E]">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <ServerRanking servers={rankedServers} />
+          </motion.div>
+        </div>
       </section>
 
       {/* Features Section */}

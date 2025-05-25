@@ -12,7 +12,9 @@ export interface DiscordServer {
   category: 'gaming' | 'community' | 'advertising' | 'other';
   inviteLink: string;
   iconUrl: string;
-  memberCount?: number;
+  memberCount: number;
+  boostLevel: number;
+  ranking?: number;
 }
 
 export interface Song {
