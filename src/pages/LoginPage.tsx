@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Mail, Lock, User } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const LoginPage: React.FC = () => {
-  const { login, register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -21,30 +14,13 @@ const LoginPage: React.FC = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      if (isLoginMode) {
-        await login(formData.email, formData.password);
-      } else {
-        await register(formData.email, formData.password, formData.name);
-      }
-      navigate('/servers');
-    } catch (error) {
-      console.error('Authentication error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0F0518] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0F0518] flex items-center justify-center px-4">
@@ -86,76 +62,17 @@ const LoginPage: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            {isLoginMode ? 'Welcome Back' : 'Create Account'}
-          </h1>
-          <p className="text-gray-300">
-            {isLoginMode ? 'Sign in to access exclusive Discord servers' : 'Join our community today'}
-          </p>
+          <h1 className="text-3xl font-bold text-white mb-2">Welcome to Reload</h1>
+          <p className="text-gray-300">Sign in with Discord to access exclusive servers</p>
         </div>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLoginMode && (
-            <div className="relative">
-              <User size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                name="name"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                required
-              />
-            </div>
-          )}
-          
-          <div className="relative">
-            <Mail size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              required
-            />
-          </div>
-          
-          <div className="relative">
-            <Lock size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              required
-            />
-          </div>
-          
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center ${
-              isLoading ? 'opacity-70 cursor-not-allowed' : ''
-            }`}
-          >
-            <LogIn size={20} className="mr-2" />
-            {isLoading ? 'Processing...' : isLoginMode ? 'Sign In' : 'Create Account'}
-          </button>
-        </form>
-        
-        <div className="mt-6 text-center">
-          <button
-            onClick={() => setIsLoginMode(!isLoginMode)}
-            className="text-purple-400 hover:text-purple-300 transition-colors"
-          >
-            {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
-          </button>
-        </div>
+        <button
+          onClick={() => loginWithRedirect()}
+          className="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center"
+        >
+          <LogIn size={20} className="mr-2" />
+          Continue with Discord
+        </button>
         
         <p className="text-gray-400 text-sm mt-6 text-center">
           By continuing, you agree to our Terms of Service and Privacy Policy.
