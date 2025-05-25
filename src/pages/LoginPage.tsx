@@ -14,6 +14,7 @@ const LoginPage: React.FC = () => {
     name: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [showPopupWarning, setShowPopupWarning] = useState(false);
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -41,10 +42,22 @@ const LoginPage: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     try {
+      setShowPopupWarning(false);
       await loginWithGoogle();
       navigate('/servers');
     } catch (error) {
       console.error('Erreur de connexion Google:', error);
+      if (error.code === 'auth/popup-blocked') {
+        setShowPopupWarning(true);
+        // Retry with redirect method after a short delay
+        setTimeout(async () => {
+          try {
+            await loginWithGoogle(true); // Pass true to use redirect method
+          } catch (redirectError) {
+            console.error('Erreur de redirection Google:', redirectError);
+          }
+        }, 1000);
+      }
     }
   };
 
@@ -102,6 +115,18 @@ const LoginPage: React.FC = () => {
             {isLoginMode ? 'Connectez-vous pour accéder aux serveurs Discord' : 'Rejoignez notre communauté'}
           </p>
         </div>
+
+        {showPopupWarning && (
+          <div className="mb-4 p-3 bg-purple-900/50 rounded-lg">
+            <p className="text-amber-300 text-sm text-center">
+              Les popups sont bloqués. Nous allons essayer une autre méthode de connexion...
+            </p>
+          </div>
+        )}
+
+        <p className="text-gray-400 text-sm mb-4 text-center">
+          Veuillez autoriser les popups dans votre navigateur pour la connexion Google.
+        </p>
 
         <button
           onClick={handleGoogleLogin}
