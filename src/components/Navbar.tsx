@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogOut, Home, Server, ShoppingBag, Info, Music, Radio } from 'lucide-react';
+import { Menu, X, LogOut, Home, Server, ShoppingBag, Info, Music, Radio, Trophy } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
@@ -29,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
   const navItems = [
     { path: '/', label: 'Accueil', icon: <Home size={18} /> },
     { path: '/servers', label: 'Serveurs', icon: <Server size={18} /> },
+    { path: '/ranked', label: 'Ranked', icon: <Trophy size={18} /> },
     { path: '/shop', label: 'Boutique', icon: <ShoppingBag size={18} /> },
     { path: '/about', label: 'À propos', icon: <Info size={18} /> },
     { path: '/radio', label: 'Radio', icon: <Radio size={18} /> },
@@ -57,7 +58,6 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
             </motion.div>
           </Link>
 
-          {/* Centered Navigation */}
           <div className="flex items-center space-x-6">
             {navItems.map((item) => (
               <Link 
@@ -81,7 +81,6 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
             </button>
           </div>
 
-          {/* User Profile/Login */}
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">

@@ -10,6 +10,7 @@ import MusicPlayer from './components/MusicPlayer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ServersPage from './pages/ServersPage';
+import RankedServersPage from './pages/RankedServersPage';
 import AboutPage from './pages/AboutPage';
 import ShopPage from './pages/ShopPage';
 import RadioPage from './pages/RadioPage';
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/servers" element={<ServersPage />} />
+                <Route path="/ranked" element={<RankedServersPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/shop" element={<ShopPage />} />
                 <Route path="/radio" element={<RadioPage />} />
