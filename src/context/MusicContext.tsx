@@ -111,12 +111,12 @@ useEffect(() => {
           height: '0',
           width: '0',
           playerVars: {
-            autoplay: 1,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            modestbranding: 1,
-            playsinline: 1,
+          autoplay: 1,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          modestbranding: 1,
+          playsinline: 1,
           },
         }}
         onReady={(event) => {
