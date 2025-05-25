@@ -20,7 +20,7 @@ const products: Product[] = [
     description: 'Boost Gratuit, Mettre en avant sont serveur.',
     price: 0,
     features: [
-      '48-hour server promotion',
+      '1-Week server promotion',
       'Basic analytics',
       'Standard support'
     ],
@@ -32,7 +32,7 @@ const products: Product[] = [
     description: 'Montre ta visibilité pour ton serveur discord',
     price: 1.30,
     features: [
-      '1-Week server promotion',
+      '3-Week server promotion',
       'Advanced analytics',
       'Priority support',
       'Custom server banner'
