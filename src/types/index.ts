@@ -27,3 +27,21 @@ export interface Song {
   url: string;
   coverArt?: string;
 }
+
+export interface GameMod {
+  id: string;
+  name: string;
+  description: string;
+  category: 'game' | 'discord' | 'gameserver';
+  subcategory: string;
+  thumbnailUrl: string;
+  downloadUrl: string;
+  author: string;
+  rating: number;
+  downloads: number;
+  dateAdded: Date;
+  requirements?: string[];
+  screenshots: string[];
+  tags: string[];
+  featured?: boolean;
+}

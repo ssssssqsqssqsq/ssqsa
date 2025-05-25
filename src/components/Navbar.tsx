@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Volume2, VolumeX, LogOut, Music, ShoppingBag } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, LogOut, Music, ShoppingBag, Gamepad2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import { motion } from 'framer-motion';
@@ -73,6 +73,15 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               className={`text-white hover:text-purple-300 transition-colors ${isActive('/servers') ? 'font-bold text-purple-300' : ''}`}
             >
               Servers
+            </Link>
+            <Link 
+              to="/catalog" 
+              className={`text-white hover:text-purple-300 transition-colors ${isActive('/catalog') ? 'font-bold text-purple-300' : ''}`}
+            >
+              <div className="flex items-center space-x-1">
+                <Gamepad2 size={18} />
+                <span>Catalog</span>
+              </div>
             </Link>
             <Link 
               to="/shop" 
@@ -161,6 +170,16 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
               onClick={closeMenu}
             >
               Servers
+            </Link>
+            <Link 
+              to="/catalog" 
+              className={`text-white hover:text-purple-300 transition-colors py-2 ${isActive('/catalog') ? 'font-bold text-purple-300' : ''}`}
+              onClick={closeMenu}
+            >
+              <div className="flex items-center space-x-2">
+                <Gamepad2 size={18} />
+                <span>Catalog</span>
+              </div>
             </Link>
             <Link 
               to="/shop" 
