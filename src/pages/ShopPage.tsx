@@ -16,7 +16,7 @@ interface Product {
 const products: Product[] = [
   {
     id: 'basic',
-    name: 'free Boost',
+    name: 'Free Boost',
     description: 'Boost Gratuit, Mettre en avant sont serveur.',
     price: 0,
     features: [
