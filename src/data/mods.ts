@@ -12,7 +12,7 @@ export const gameMods: GameMod[] = [
     author: 'Reload Ta Pub',
     rating: 0,
     downloads: 9,
-    dateAdded: new Date('2025-25-05'),
+    dateAdded: new Date('2024-03-10'),
     requirements: ['Discord Publicitaire']
     screenshot: [
      'https://images.pexels.com/photos/2885014/pexels-photo-2885014.jpeg?auto=compress&cs=tinysrgb&w=800'
