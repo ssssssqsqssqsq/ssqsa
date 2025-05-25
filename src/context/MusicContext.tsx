@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { Song } from '../types';
 import { songs } from '../data/songs';
@@ -42,17 +42,18 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef<any>(null);
 
+  // Auto-play first song when component mounts
+  useEffect(() => {
+    if (playlist.length > 0 && !currentSong) {
+      playSong(playlist[0]);
+    }
+  }, []);
+
   const addSong = useCallback((song: Song) => {
     if (!getYouTubeId(song.url)) {
       toast.error('Invalid YouTube URL');
       return;
     }
-    // Ajout dans MusicProvider :
-useEffect(() => {
-  if (songs.length > 0) {
-    playSong(songs[0]);
-  }
-}, []);
     
     setPlaylist((prev) => [...prev, song]);
     toast.success('Song added to playlist');
@@ -111,12 +112,12 @@ useEffect(() => {
           height: '0',
           width: '0',
           playerVars: {
-          autoplay: 1,
-          controls: 0,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
+            autoplay: 1,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            playsinline: 1,
           },
         }}
         onReady={(event) => {
