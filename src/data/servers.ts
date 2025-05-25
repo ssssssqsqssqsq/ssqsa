@@ -13,13 +13,13 @@ export const discordServers: DiscordServer[] = [
   },
   {
     id: '2',
-    name: 'Gaming Hub',
-    description: 'The ultimate gaming community!',
-    category: 'gaming',
-    inviteLink: 'https://discord.gg/example',
-    iconUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=150',
-    memberCount: 35,
-    boostLevel: 1
+    name: '#Soon',
+    description: '',
+    category: '',
+    inviteLink: '',
+    iconUrl: '',
+    memberCount: 0,
+    boostLevel: 0
   },
   {
     id: '3',
