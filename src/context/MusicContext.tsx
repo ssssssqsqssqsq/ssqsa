@@ -47,12 +47,31 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       toast.error('Invalid YouTube URL');
       return;
     }
-    // Ajout dans MusicProvider :
-useEffect(() => {
-  if (songs.length > 0) {
-    playSong(songs[0]);
-  }
-}, []);
+  // Exemple d'ajout console.log dans playSong
+  const playSong = useCallback(
+    (song: Song) => {
+      console.log('playSong called with:', song); // <-- ici
+      if (currentSong?.id === song.id) {
+        playerRef.current?.playVideo();
+        setIsPlaying(true);
+      } else {
+        setCurrentSong(song);
+        setIsPlaying(true);
+      }
+    },
+    [currentSong]
+  );
+
+  // Exemple d'ajout console.log dans useEffect pour autoplay
+  useEffect(() => {
+    console.log('useEffect autoplay triggered'); // <-- ici
+    if (songs.length > 0) {
+      playSong(songs[0]);
+    }
+  }, [playSong]);
+
+  // ... le reste de ton composant
+};
     
     setPlaylist((prev) => [...prev, song]);
     toast.success('Song added to playlist');
