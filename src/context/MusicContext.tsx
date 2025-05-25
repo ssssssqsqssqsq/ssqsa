@@ -63,7 +63,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const pauseSong = useCallback(() => {
     playerRef.current?.pauseVideo();
-    setIsPlaying(false);
+    setIsPlaying(true);
   }, []);
 
   const nextSong = useCallback(() => {
